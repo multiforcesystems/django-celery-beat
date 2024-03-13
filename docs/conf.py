@@ -37,4 +37,10 @@ globals().update(conf.build_config(
             None
         ),
     },
+    extensions=['sphinxcontrib_django']
 ))
+
+intersphinx_mapping = globals().get('intersphinx_mapping', {})
+intersphinx_mapping['celery'] = (
+    'https://celery.readthedocs.io/en/main/', None)
+globals().update({'intersphinx_mapping': intersphinx_mapping})

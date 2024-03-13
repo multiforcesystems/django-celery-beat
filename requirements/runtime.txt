@@ -1,2 +1,2 @@
-Django>=2.2,<5.0
-celery-redbeat==2.0.0
+Django>=2.2,<5.1
+celery-redbeat==2.2.0

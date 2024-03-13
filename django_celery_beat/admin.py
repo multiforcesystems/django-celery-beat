@@ -273,11 +273,30 @@ class ClockedScheduleAdmin(admin.ModelAdmin):
     )
 
 
+# save to trigger signal
+def entry_save(queryset):
+    for task in queryset:
+        task.save()
+
 @admin.register(CrontabSchedule)
 class CrontabScheduleAdmin(admin.ModelAdmin):
     """Admin class for CrontabSchedule."""
 
     list_display = ('__str__', 'human_readable')
+
+
+class RedBeatPeriodicTaskAdmin(PeriodicTaskAdmin):
+    def enable_tasks(self, request, queryset):
+        super().enable_tasks(request, queryset)
+        entry_save(queryset)
+
+    def disable_tasks(self, request, queryset):
+        super().disable_tasks(request, queryset)
+        entry_save(queryset)
+
+    def toggle_tasks(self, request, queryset):
+        super().toggle_tasks(request, queryset)
+        entry_save(queryset)
 
 
 admin.site.register(IntervalSchedule)
